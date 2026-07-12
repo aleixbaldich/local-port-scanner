@@ -1,17 +1,19 @@
 
 import java.net.Socket;
 import java.io.IOException;
+import java.net.InetSocketAddress;
 
 public class PortScanner {
 
     public static boolean isPortOpen(String host, int port){
-        try(Socket socket = new Socket(host,port)){
+        try(Socket socket = new Socket()){
+             socket.connect(new InetSocketAddress(host, port), 200);
             return true;
         }catch(IOException e){
             return false;
         }
     }
-    public static void main(String args[]){
+    public static void main(String[] args){
         String host = "localhost";
 
          System.out.println("Scanning host: " + host);
