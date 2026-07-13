@@ -1,5 +1,6 @@
 
 import java.net.Socket;
+import java.util.Scanner;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 
@@ -14,9 +15,13 @@ public class PortScanner {
         }
     }
     public static void main(String[] args){
-        String host = "localhost";
+        Scanner scanner = new Scanner(System.in);
+        String host;
 
-         System.out.println("Scanning host: " + host);
+        System.out.println("Enter host to scan: ");
+        host = scanner.nextLine();
+
+        System.out.println("Scanning host: " + host);
 
         for(int i=1 ; i<=1024; i++){
             if (isPortOpen(host, i)){
