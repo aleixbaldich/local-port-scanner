@@ -1,12 +1,12 @@
 ﻿# Local Port Scanner
 
-Local Port Scanner is a simple Java command-line tool that checks which ports are open on `localhost`.
+Local Port Scanner is a simple Java command-line tool that checks which ports are open on a host entered by the user.
 
 This project is intended as a beginner-friendly networking and cybersecurity exercise. It focuses on learning how sockets, ports, and local services work in a safe lab environment.
 
 ## Features
 
-- Scans `localhost`
+- Asks the user which host to scan
 - Checks ports from `1` to `1024`
 - Prints only open ports
 - Uses a connection timeout to avoid waiting too long on closed ports
@@ -47,9 +47,18 @@ Run it:
 java -cp out PortScanner
 ```
 
+Then enter a host when prompted:
+
+```text
+Enter host to scan:
+localhost
+```
+
 Example output on Windows:
 
 ```text
+Enter host to scan:
+localhost
 Scanning host: localhost
 Port OPEN: 135
 Port OPEN: 445
@@ -60,7 +69,7 @@ The open ports may be different on your machine depending on which services are 
 
 ## How It Works
 
-The scanner tries to create a socket connection to each port in the range `1-1024`.
+The scanner asks for a host, then tries to create a socket connection to each port in the range `1-1024`.
 
 If the connection succeeds, the port is considered open:
 
@@ -84,7 +93,7 @@ Some common ports you may see on local machines:
 
 ## Current Limitations
 
-- The host is hardcoded as `localhost`
+- The host is entered interactively instead of being passed as a command-line argument
 - The port range is hardcoded from `1` to `1024`
 - It scans ports sequentially
 - It does not identify services automatically
