@@ -1,12 +1,13 @@
 ﻿# Local Port Scanner
 
-Local Port Scanner is a simple Java command-line tool that checks which ports are open on a host entered by the user.
+Local Port Scanner is a simple Java command-line tool that checks which ports are open on a host provided by the user.
 
 This project is intended as a beginner-friendly networking and cybersecurity exercise. It focuses on learning how sockets, ports, and local services work in a safe lab environment.
 
 ## Features
 
-- Asks the user which host to scan
+- Accepts the target host as a command-line argument
+- Asks for the target host interactively if no argument is provided
 - Checks ports from `1` to `1024`
 - Prints only open ports
 - Uses a connection timeout to avoid waiting too long on closed ports
@@ -41,7 +42,7 @@ Compile the program:
 javac -d out src/PortScanner.java
 ```
 
-Run it:
+Run it in interactive mode:
 
 ```bash
 java -cp out PortScanner
@@ -52,6 +53,18 @@ Then enter a host when prompted:
 ```text
 Enter host to scan:
 localhost
+```
+
+Or pass the host directly as an argument:
+
+```bash
+java -cp out PortScanner localhost
+```
+
+You can also use a local or lab IP address that you own or have permission to scan:
+
+```bash
+java -cp out PortScanner 127.0.0.1
 ```
 
 Example output on Windows:
@@ -69,7 +82,9 @@ The open ports may be different on your machine depending on which services are 
 
 ## How It Works
 
-The scanner asks for a host, then tries to create a socket connection to each port in the range `1-1024`.
+The scanner uses the first command-line argument as the target host. If no argument is provided, it asks for the host interactively.
+
+Then it tries to create a socket connection to each port in the range `1-1024`.
 
 If the connection succeeds, the port is considered open:
 
@@ -93,7 +108,6 @@ Some common ports you may see on local machines:
 
 ## Current Limitations
 
-- The host is entered interactively instead of being passed as a command-line argument
 - The port range is hardcoded from `1` to `1024`
 - It scans ports sequentially
 - It does not identify services automatically
@@ -101,7 +115,6 @@ Some common ports you may see on local machines:
 
 ## Future Improvements
 
-- Accept the host as a command-line argument
 - Accept start and end ports as command-line arguments
 - Show common service names for known ports
 - Count and display the total number of open ports
