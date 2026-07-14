@@ -18,8 +18,8 @@ public class PortScanner {
         Scanner scanner = new Scanner(System.in);
         String host;
 
-        if(args[0]!=null){
-            
+        if(args.length>0){
+            host = args[0];
         }
         else{
             System.out.println("Enter host to scan: ");
