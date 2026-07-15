@@ -23,17 +23,6 @@ local-port-scanner/
   LICENSE
 ```
 
-## Requirements
-
-- Java JDK installed
-
-You can check your Java installation with:
-
-```bash
-java -version
-javac -version
-```
-
 ## Usage
 
 Compile the program:
