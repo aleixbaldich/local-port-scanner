@@ -10,7 +10,7 @@ public class PortScanner {
 
     static Map<Integer,String> portName = new HashMap<>();
 
-    public static void AddedPorts(){
+    public static void addKnownPorts(){
         portName.put(20, "FTP data");
         portName.put(21, "FTP control");
         portName.put(22, "SSH");
@@ -35,12 +35,21 @@ public class PortScanner {
     }
 
 
-    
+    public static String getServiceName(int port){
+        for(Map.Entry<Integer,String> entrada : portName.entrySet()){
+            if(entrada.getKey() == port){
+                return entrada.getValue();
+            }
+        }
+        return "Unknown service";
+    }
 
 
     public static void main(String[] args){
         Scanner scanner = new Scanner(System.in);
         String host;
+
+        addKnownPorts();
 
         if(args.length>0){
             host = args[0];
@@ -55,7 +64,7 @@ public class PortScanner {
 
         for(int i=1 ; i<=1024; i++){
             if (isPortOpen(host, i)){
-                System.out.println("Port OPEN: " + i );
+                System.out.println("Port OPEN: " + i + " "+ getServiceName(i) );
             }
         }
         System.out.println("Scan completed.");
