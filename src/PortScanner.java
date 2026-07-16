@@ -36,10 +36,10 @@ public class PortScanner {
 
 
     public static String getServiceName(int port){
-        for(Map.Entry<Integer,String> entrada : portName.entrySet()){
-            if(entrada.getKey() == port){
-                return entrada.getValue();
-            }
+
+        String service = portName.get(port);
+        if(service != null){
+            return service;
         }
         return "Unknown service";
     }
