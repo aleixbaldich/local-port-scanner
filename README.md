@@ -1,4 +1,4 @@
-﻿# Local Port Scanner
+# Local Port Scanner
 
 Local Port Scanner is a simple Java command-line tool that checks which ports are open on a host provided by the user.
 
@@ -8,7 +8,8 @@ This project is intended as a beginner-friendly networking and cybersecurity exe
 
 - Accepts the target host as a command-line argument
 - Asks for the target host interactively if no argument is provided
-- Checks ports from `1` to `1024`
+- Accepts the highest port to scan as a command-line argument
+- Asks for the highest port to scan interactively if no argument is provided
 - Prints open ports with known service names when available
 - Uses a connection timeout to avoid waiting too long on closed ports
 - Runs locally and does not require external libraries
@@ -21,6 +22,17 @@ local-port-scanner/
     PortScanner.java
   README.md
   LICENSE
+```
+
+## Requirements
+
+- Java JDK installed
+
+You can check your Java installation with:
+
+```bash
+java -version
+javac -version
 ```
 
 ## Usage
@@ -37,23 +49,25 @@ Run it in interactive mode:
 java -cp out PortScanner
 ```
 
-Then enter a host when prompted:
+Then enter a host and a port limit when prompted:
 
 ```text
 Enter host to scan:
 localhost
+Enter how many ports do you want to scan:
+1024
 ```
 
-Or pass the host directly as an argument:
+Or pass the host and port limit directly as arguments:
 
 ```bash
-java -cp out PortScanner localhost
+java -cp out PortScanner localhost 1024
 ```
 
 You can also use a local or lab IP address that you own or have permission to scan:
 
 ```bash
-java -cp out PortScanner 127.0.0.1
+java -cp out PortScanner 127.0.0.1 1024
 ```
 
 Example output on Windows:
@@ -61,6 +75,8 @@ Example output on Windows:
 ```text
 Enter host to scan:
 localhost
+Enter how many ports do you want to scan:
+1024
 Scanning host: localhost
 Port OPEN: 135 Windows RPC
 Port OPEN: 445 SMB / Windows file sharing
@@ -73,7 +89,9 @@ The open ports may be different on your machine depending on which services are 
 
 The scanner uses the first command-line argument as the target host. If no argument is provided, it asks for the host interactively.
 
-Then it tries to create a socket connection to each port in the range `1-1024`.
+The scanner uses the second command-line argument as the highest port to scan. If no argument is provided, it asks for the limit interactively.
+
+Then it tries to create a socket connection to each port from `1` up to that limit.
 
 If the connection succeeds, the port is considered open:
 
@@ -91,7 +109,12 @@ The program keeps a small built-in list of known ports and service names. If a p
 
 Some common ports you may see on local machines:
 
+- `20`: FTP data
+- `21`: FTP control
 - `22`: SSH
+- `23`: Telnet
+- `25`: SMTP
+- `53`: DNS
 - `80`: HTTP
 - `135`: Windows RPC
 - `443`: HTTPS
@@ -99,7 +122,7 @@ Some common ports you may see on local machines:
 
 ## Current Limitations
 
-- The port range is hardcoded from `1` to `1024`
+- The port range starts at `1`
 - It scans ports sequentially
 - It only knows a small built-in list of common services
 - It does not include automated tests yet
