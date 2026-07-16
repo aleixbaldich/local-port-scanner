@@ -9,7 +9,7 @@ This project is intended as a beginner-friendly networking and cybersecurity exe
 - Accepts the target host as a command-line argument
 - Asks for the target host interactively if no argument is provided
 - Checks ports from `1` to `1024`
-- Prints only open ports
+- Prints open ports with known service names when available
 - Uses a connection timeout to avoid waiting too long on closed ports
 - Runs locally and does not require external libraries
 
@@ -62,8 +62,8 @@ Example output on Windows:
 Enter host to scan:
 localhost
 Scanning host: localhost
-Port OPEN: 135
-Port OPEN: 445
+Port OPEN: 135 Windows RPC
+Port OPEN: 445 SMB / Windows file sharing
 Scan completed.
 ```
 
@@ -78,12 +78,14 @@ Then it tries to create a socket connection to each port in the range `1-1024`.
 If the connection succeeds, the port is considered open:
 
 ```text
-Port OPEN: 135
+Port OPEN: 135 Windows RPC
 ```
 
 If the connection fails or times out, the port is treated as closed and is not printed.
 
 The current timeout is `200 ms` per port.
+
+The program keeps a small built-in list of known ports and service names. If a port is not in that list, it is shown as `Unknown service`.
 
 ## Common Local Ports
 
@@ -99,13 +101,13 @@ Some common ports you may see on local machines:
 
 - The port range is hardcoded from `1` to `1024`
 - It scans ports sequentially
-- It does not identify services automatically
+- It only knows a small built-in list of common services
 - It does not include automated tests yet
 
 ## Future Improvements
 
 - Accept start and end ports as command-line arguments
-- Show common service names for known ports
+- Expand the built-in list of known ports
 - Count and display the total number of open ports
 - Improve output formatting
 
