@@ -48,21 +48,33 @@ public class PortScanner {
     public static void main(String[] args){
         Scanner scanner = new Scanner(System.in);
         String host;
+        int numports;
 
         addKnownPorts();
 
         if(args.length>0){
             host = args[0];
+        
         }
         else{
             System.out.println("Enter host to scan: ");
             host = scanner.nextLine();
         }
+
+        if(args.length>1){
+           numports = Integer.parseInt(args[1]);
+        }
+        else {
+            System.out.println("Enter how many ports do you want to scan: ");
+            numports = scanner.nextInt();
+        }
+
+        
        
 
         System.out.println("Scanning host: " + host);
 
-        for(int i=1 ; i<=1024; i++){
+        for(int i=1 ; i<=numports; i++){
             if (isPortOpen(host, i)){
                 System.out.println("Port OPEN: " + i + " "+ getServiceName(i) );
             }
