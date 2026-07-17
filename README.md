@@ -11,6 +11,7 @@ This project is intended as a beginner-friendly networking and cybersecurity exe
 - Accepts the highest port to scan as a command-line argument
 - Asks for the highest port to scan interactively if no argument is provided
 - Prints open ports with known service names when available
+- Counts and displays the total number of open ports found
 - Uses a connection timeout to avoid waiting too long on closed ports
 - Runs locally and does not require external libraries
 
@@ -80,6 +81,7 @@ Enter how many ports do you want to scan:
 Scanning host: localhost
 Port OPEN: 135 Windows RPC
 Port OPEN: 445 SMB / Windows file sharing
+Total open ports: 2
 Scan completed.
 ```
 
@@ -104,6 +106,8 @@ If the connection fails or times out, the port is treated as closed and is not p
 The current timeout is `200 ms` per port.
 
 The program keeps a small built-in list of known ports and service names. If a port is not in that list, it is shown as `Unknown service`.
+
+At the end of the scan, the program prints the total number of open ports found.
 
 ## Common Local Ports
 
@@ -131,7 +135,6 @@ Some common ports you may see on local machines:
 
 - Accept start and end ports as command-line arguments
 - Expand the built-in list of known ports
-- Count and display the total number of open ports
 - Improve output formatting
 
 ## Ethics
