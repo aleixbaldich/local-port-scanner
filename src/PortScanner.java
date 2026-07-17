@@ -49,6 +49,7 @@ public class PortScanner {
         Scanner scanner = new Scanner(System.in);
         String host;
         int numports;
+        int openportscount = 0;
 
         addKnownPorts();
 
@@ -77,8 +78,10 @@ public class PortScanner {
         for(int i=1 ; i<=numports; i++){
             if (isPortOpen(host, i)){
                 System.out.println("Port OPEN: " + i + " "+ getServiceName(i) );
+                openportscount++;
             }
         }
+        System.out.println("Total open ports: "+ openportscount);
         System.out.println("Scan completed.");
     }
 }
